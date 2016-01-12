@@ -16,6 +16,11 @@ LOCAL_SRC_FILES:= \
     com_android_bluetooth_gatt.cpp \
     com_android_bluetooth_sdp.cpp
 
+ifeq ($(strip $(BOARD_HAVE_FMRADIO_BCM)),true)
+LOCAL_SRC_FILES += ../fm/app/jni/com_broadcom_fm_service.cpp
+LOCAL_CFLAGS += -DBOARD_HAVE_FMRADIO_BCM
+endif
+
 LOCAL_C_INCLUDES += \
     $(JNI_H_INCLUDE) \
 
