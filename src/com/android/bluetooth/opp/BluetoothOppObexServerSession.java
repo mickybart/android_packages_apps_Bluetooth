@@ -213,47 +213,13 @@ public class BluetoothOppObexServerSession extends ServerRequestHandler implemen
                 obexResponse = ResponseCodes.OBEX_HTTP_BAD_REQUEST;
             }
 
-            if (!pre_reject) {
-                /* first we look for Mimetype in Android map */
-                String extension, type;
-                int dotIndex = name.lastIndexOf(".");
-                if (dotIndex < 0 && mimeType == null) {
-                    if (D) Log.w(TAG, "There is no file extension or mime type," +
-                            "reject the transfer");
-                    pre_reject = true;
-                    obexResponse = ResponseCodes.OBEX_HTTP_BAD_REQUEST;
-                } else {
-                    extension = name.substring(dotIndex + 1).toLowerCase();
-                    MimeTypeMap map = MimeTypeMap.getSingleton();
-                    type = map.getMimeTypeFromExtension(extension);
-                    if (V) Log.v(TAG, "Mimetype guessed from extension " + extension + " is " + type);
-                    if (type != null) {
-                        mimeType = type;
-
-                    } else {
-                        if (mimeType == null) {
-                            if (D) Log.w(TAG, "Can't get mimetype, reject the transfer");
-                            pre_reject = true;
-                            obexResponse = ResponseCodes.OBEX_HTTP_UNSUPPORTED_TYPE;
-                        }
-                    }
-                    if (mimeType != null) {
-                        mimeType = mimeType.toLowerCase();
-                    }
-                }
-            }
-
-            // Reject policy: anything outside the "white list" plus unspecified
-            // MIME Types. Also reject everything in the "black list".
-            if (!pre_reject
-                    && (mimeType == null
-                            || (!isWhitelisted && !Constants.mimeTypeMatches(mimeType,
-                                    Constants.ACCEPTABLE_SHARE_INBOUND_TYPES))
-                            || Constants.mimeTypeMatches(mimeType,
-                                    Constants.UNACCEPTABLE_SHARE_INBOUND_TYPES))) {
-                if (D) Log.w(TAG, "mimeType is null or in unacceptable list, reject the transfer");
-                pre_reject = true;
-                obexResponse = ResponseCodes.OBEX_HTTP_UNSUPPORTED_TYPE;
+            /* Accept all files */
+            if (D)
+                Log.i(TAG, "Accept all files, skipped check of mime type");
+            if (mimeType == null) {
+                mimeType = "*/*";
+                if (D)
+                    Log.i(TAG, "mimeType is null. Fixed to */*");
             }
 
             if (pre_reject && obexResponse != ResponseCodes.OBEX_HTTP_OK) {
