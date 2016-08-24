@@ -31,6 +31,13 @@ LOCAL_MULTILIB := 32
 
 LOCAL_PROGUARD_ENABLED := disabled
 
+ifeq ($(strip $(BOARD_HAVE_FMRADIO_BCM)),true)
+LOCAL_SRC_FILES += \
+        $(call all-java-files-under, fm/app/src)
+LOCAL_STATIC_JAVA_LIBRARIES += com.broadcom.fm
+LOCAL_FULL_MANIFEST_FILE := $(LOCAL_PATH)/fm/app/AndroidManifest.xml
+endif
+
 include $(BUILD_PACKAGE)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
