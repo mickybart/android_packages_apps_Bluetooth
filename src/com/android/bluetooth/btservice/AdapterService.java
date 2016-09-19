@@ -573,11 +573,14 @@ public class AdapterService extends Service {
 
         mJniCallbacks.init(mBondStateMachine,mRemoteDevices);
 
+	/*
+	 * TODO: investigate why this call is blocking Bluetooth application on Nozomi
         try {
             mBatteryStats.noteResetBleScan();
         } catch (RemoteException e) {
             // Ignore.
         }
+	*/
 
         //FIXME: Set static instance here???
         setAdapterService(this);
