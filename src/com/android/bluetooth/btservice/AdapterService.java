@@ -494,11 +494,14 @@ public class AdapterService extends Service {
 
         mJniCallbacks.init(mBondStateMachine,mRemoteDevices);
 
+	/*
+	 * TODO: investigate why this call is blocking Bluetooth application on Nozomi
         try {
             mBatteryStats.noteResetBleScan();
         } catch (RemoteException e) {
             // Ignore.
         }
+	*/
 
         //Start Gatt service
         setGattProfileServiceState(supportedProfileServices,BluetoothAdapter.STATE_ON);
