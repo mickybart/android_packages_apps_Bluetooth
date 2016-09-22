@@ -574,7 +574,8 @@ public class AdapterService extends Service {
         mJniCallbacks.init(mBondStateMachine,mRemoteDevices);
 
 	/*
-	 * TODO: investigate why this call is blocking Bluetooth application on Nozomi
+	 * TODO: debug
+	 * The new battery stats can provocate a java.lang.SecurityException
         try {
             mBatteryStats.noteResetBleScan();
         } catch (RemoteException e) {
