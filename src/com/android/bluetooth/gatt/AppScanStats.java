@@ -123,13 +123,17 @@ import com.android.bluetooth.btservice.BluetoothProto;
 
             // Only update battery stats after receiving 100 new results in order
             // to lower the cost of the binder transaction
+            /*
+             * TODO: debug
+             * The new battery stats can provocate a java.lang.SecurityException
             if (batteryStatsResults % 100 == 0) {
                 try {
                     batteryStats.noteBleScanResults(workSource, 100);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
             }
+             */
         }
 
         results++;
@@ -165,12 +169,16 @@ import com.android.bluetooth.btservice.BluetoothProto;
         gattService.addScanEvent(scanEvent);
 
         if (!isScanning()) mScanStartTime = startTime;
+        /*
+         * TODO: debug
+         * The new battery stats can provocate a java.lang.SecurityException
         try {
             boolean isUnoptimized = !(scan.filtered || scan.background || scan.opportunistic);
             batteryStats.noteBleScanStarted(workSource, isUnoptimized);
         } catch (RemoteException e) {
-            /* ignore */
+            // ignore
         }
+         */
 
         ongoingScans.put(scannerId, scan);
     }
@@ -208,6 +216,9 @@ import com.android.bluetooth.btservice.BluetoothProto;
             maxScanTime = Math.max(totalDuration, maxScanTime);
         }
 
+        /*
+         * TODO: debug
+         * The new battery stats can provocate a java.lang.SecurityException
         try {
             // Inform battery stats of any results it might be missing on
             // scan stop
@@ -215,8 +226,9 @@ import com.android.bluetooth.btservice.BluetoothProto;
             batteryStats.noteBleScanResults(workSource, scan.results % 100);
             batteryStats.noteBleScanStopped(workSource, isUnoptimized);
         } catch (RemoteException e) {
-            /* ignore */
+            // ignore
         }
+         */
     }
 
     synchronized void recordScanSuspend(int scannerId) {
