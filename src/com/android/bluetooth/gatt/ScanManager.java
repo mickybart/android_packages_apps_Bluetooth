@@ -236,11 +236,15 @@ public class ScanManager {
                 }
 
                 // Update BatteryStats with this workload.
+		/*
+		 * TODO: debug
+		 * The new battery stats can provocate a java.lang.SecurityException
                 try {
                     mBatteryStats.noteBleScanStarted(client.workSource);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
+	        */
             }
         }
 
@@ -261,6 +265,9 @@ public class ScanManager {
                 }
 
                 // Update BatteryStats with this workload.
+		/*
+		 * TODO: debug
+		 * The new battery stats can provocate a java.lang.SecurityException
                 try {
                     // The ScanClient passed in just holds the clientIf. We retrieve the real client,
                     // which may have workSource set.
@@ -268,8 +275,9 @@ public class ScanManager {
                     if (workClient != null)
                         mBatteryStats.noteBleScanStopped(workClient.workSource);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
+		*/
             } else {
                 mScanNative.stopBatchScan(client);
             }
