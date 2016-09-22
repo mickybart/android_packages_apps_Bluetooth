@@ -111,13 +111,17 @@ import com.android.bluetooth.btservice.BluetoothProto;
 
             // Only update battery stats after receiving 100 new results in order
             // to lower the cost of the binder transaction
+            /*
+             * TODO: debug
+             * The new battery stats can provocate a java.lang.SecurityException
             if (batteryStatsResults % 100 == 0) {
                 try {
                     batteryStats.noteBleScanResults(workSource, 100);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
             }
+             */
         }
 
         results++;
@@ -145,12 +149,16 @@ import com.android.bluetooth.btservice.BluetoothProto;
         scanEvent.setInitiator(truncateAppName(appName));
         gattService.addScanEvent(scanEvent);
 
+        /*
+         * TODO: debug
+         * The new battery stats can provocate a java.lang.SecurityException
         try {
             boolean isUnoptimized = !(scan.filtered || scan.background || scan.opportunistic);
             batteryStats.noteBleScanStarted(workSource, isUnoptimized);
         } catch (RemoteException e) {
-            /* ignore */
+            // ignore
         }
+         */
     }
 
     synchronized void recordScanStop() {
@@ -180,14 +188,18 @@ import com.android.bluetooth.btservice.BluetoothProto;
         scanEvent.setInitiator(truncateAppName(appName));
         gattService.addScanEvent(scanEvent);
 
+        /*
+         * TODO: debug
+         * The new battery stats can provocate a java.lang.SecurityException
         try {
             // Inform battery stats of any results it might be missing on
             // scan stop
             batteryStats.noteBleScanResults(workSource, curr.results % 100);
             batteryStats.noteBleScanStopped(workSource);
         } catch (RemoteException e) {
-            /* ignore */
+            // ignore
         }
+         */
     }
 
     synchronized void setScanTimeout() {
