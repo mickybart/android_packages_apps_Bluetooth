@@ -238,11 +238,15 @@ public class ScanManager {
                 }
 
                 // Update BatteryStats with this workload.
+		/*
+		 * TODO: debug
+		 * The new battery stats can provocate a java.lang.SecurityException
                 try {
                     mBatteryStats.noteBleScanStarted(client.workSource);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
+	        */
             }
         }
 
@@ -267,11 +271,15 @@ public class ScanManager {
                 }
 
                 // Update BatteryStats with this workload.
+		/*
+		 * TODO: debug
+		 * The new battery stats can provocate a java.lang.SecurityException
                 try {
                     mBatteryStats.noteBleScanStopped(client.workSource);
                 } catch (RemoteException e) {
-                    /* ignore */
+                    // ignore
                 }
+		*/
             } else {
                 mScanNative.stopBatchScan(client);
             }
