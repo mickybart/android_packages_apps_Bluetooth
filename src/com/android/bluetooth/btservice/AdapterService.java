@@ -449,13 +449,13 @@ public class AdapterService extends Service {
     }
     public boolean onUnbind(Intent intent) {
         debugLog("onUnbind() - calling cleanup");
-        cleanup();
         return super.onUnbind(intent);
     }
 
     public void onDestroy() {
         debugLog("onDestroy()");
         mProfileObserver.stop();
+        cleanup();
         if (!isMock()) {
             // TODO(b/27859763)
             Log.i(TAG, "Force exit to cleanup internal state in Bluetooth stack");

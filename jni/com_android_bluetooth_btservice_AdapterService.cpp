@@ -1345,5 +1345,13 @@ jint JNI_OnLoad(JavaVM* jvm, void* reserved) {
     return JNI_ERR;
   }
 
+#ifdef BOARD_HAVE_FMRADIO_BCM
+  status = android::register_com_broadcom_fm_service(e);
+  if (status < 0) {
+    ALOGE("jni fm registration failure: %d", status);
+    return JNI_ERR;
+  }
+#endif
+
   return JNI_VERSION_1_6;
 }
