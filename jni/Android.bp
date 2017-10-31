@@ -36,4 +36,12 @@ cc_library_shared {
         "-Wextra",
         "-Wno-unused-parameter",
     ],
+    product_variables: {
+        has_fmradio_bcm: {
+            cflags: ["-DBOARD_HAVE_FMRADIO_BCM"],
+            srcs: [
+                "../fm/app/jni/com_broadcom_fm_service.cpp",
+            ],
+        },
+    },
 }
