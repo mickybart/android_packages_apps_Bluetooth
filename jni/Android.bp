@@ -40,7 +40,7 @@ cc_library_shared {
         has_fmradio_bcm: {
             cflags: ["-DBOARD_HAVE_FMRADIO_BCM"],
             srcs: [
-                "../fm/app/jni/com_broadcom_fm_service.cpp",
+                "fm/com_broadcom_fm_service.cpp",
             ],
         },
     },
